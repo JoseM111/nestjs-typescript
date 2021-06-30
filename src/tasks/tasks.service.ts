@@ -25,7 +25,5 @@ export class TasksService {
 		this.tasks.push(task)
 		return task
 	}
-	
-	
 }
 /// - END OF: TasksController
