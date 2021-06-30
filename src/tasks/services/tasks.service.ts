@@ -9,16 +9,20 @@ export class TasksService {
 	//: - ©PROPERTIES
 	private tasks: Array<ITask> = []
 	
-	/** @getters | */
-	getAllTasks = (): Array<ITask> => this.tasks
+	/** @Getters | */
+	getAllTasks(): Array<ITask> {
+		return this.tasks
+	}
 	
-	getTaskById = (id: string): ITask => this.tasks
-		.find((task) => task.id === id)
+	getTaskById(id: string): ITask {
+		return this.tasks
+			.find((task) => task.id === id)
+	}
 	
 	/// ======== <> CRUD FUNCTIONS <> ========
 	
 	/** @Create | */
-	createTask = (createTaskDto: CreateTaskDto): ITask => {
+	createTask(createTaskDto: CreateTaskDto): ITask {
 		//..........
 		const { title, desc } = createTaskDto
 		
@@ -34,8 +38,16 @@ export class TasksService {
 	}
 	
 	/** @Delete | */
-	deleteTask = (id: string): void => {
-		this.tasks.filter((task) => task.id !== id)
+	deleteTask(id: string): void {
+		//..........
+		this.tasks = this.tasks
+			.filter((task) => {
+				console.log(
+					'\n*. DELETE TASK:',
+					JSON.stringify(task, null, '\t')
+				)
+				return task.id !== id
+			})
 	}
 }
 /// - END OF: TasksController
