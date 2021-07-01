@@ -1,14 +1,13 @@
-/** @get-task-filter.dto.ts | */
+/** @UpdateTaskStatus.dto.ts | */
 import { EnumTaskStatus } from "tasks/models/tasks.model"
-import { IsEnum, IsOptional, IsString } from "class-validator"
+import { IsEnum } from "class-validator"
+
 // ⚫️⚫️☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰
 
-export class GetTaskFilterDto {
+export class UpdateTaskStatusDto {
 	//: - ©PROPERTIES
 	@IsEnum(EnumTaskStatus)
-	@IsOptional() status?: EnumTaskStatus
+	status: EnumTaskStatus
 	
-	@IsString()
-	@IsOptional() search?: string
 }
-/// - END OF: GetTaskFilterDto
+/// - END OF: UpdateTaskStatusDto

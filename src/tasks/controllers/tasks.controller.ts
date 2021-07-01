@@ -1,8 +1,9 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post, Query } from '@nestjs/common'
 import { TasksService } from "tasks/services/tasks.service"
-import { EnumTaskStatus, ITask } from "tasks/models/tasks.model"
+import { ITask } from "tasks/models/tasks.model"
 import { CreateTaskDto } from "tasks/dto/create-task.dto"
 import { GetTaskFilterDto } from "tasks/dto/get-task-filter.dto"
+import { UpdateTaskStatusDto } from "tasks/dto/update-task-status.dto"
 // ⚫️⚫️☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰
 
 @Controller('tasks')
@@ -54,16 +55,18 @@ export class TasksController {
 	/** @PatchRequest | */
 	/// PATCH method supplies a set of instructions to modify the resource
 	@Patch('/:id/status')
-	updateTaskStatus(
+	patchUpdateTaskStatus(
 		@Param('id') id: string,
-		@Body('status') status: EnumTaskStatus): ITask {
+		@Body() updateTaskStatusDto: UpdateTaskStatusDto): ITask {
 		//..........
+		const { status } = updateTaskStatusDto
+		
 		console.log(
-			'[PATCH REQUEST] patch status:',
-			this.tasksService.updateTaskStatusService(id, status)
+			'\n[PATCH REQUEST] patch status:',
+			this.tasksService.patchUpdateTaskStatusService(id, status)
 		)
 		
-		return this.tasksService.updateTaskStatusService(id, status)
+		return this.tasksService.patchUpdateTaskStatusService(id, status)
 	}
 	
 	/** @DeleteRequest | */
