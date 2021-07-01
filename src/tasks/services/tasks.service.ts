@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common'
+import { Injectable, NotFoundException } from '@nestjs/common'
 import { EnumTaskStatus, ITask } from "tasks/models/tasks.model"
 import { v4 as uuid } from 'uuid'
 import { CreateTaskDto } from "tasks/dto/create-task.dto"
@@ -34,8 +34,17 @@ export class TasksService {
 	}
 	
 	getTaskByIdService(id: string): ITask {
-		return this.tasks
-			.find((task) => task.id === id)
+		//..........
+		const found = this.tasks.find((task) =>
+			task.id === id
+		)
+		
+		// The HTTP response status code will be 404
+		if (!found) throw new NotFoundException(
+			`Task with ID: ${id} not found`
+		)
+		
+		return found
 	}
 	
 	getTaskFiltersService(filterDto: GetTaskFilterDto): Array<ITask> {
@@ -50,10 +59,32 @@ export class TasksService {
 		return tasks
 	}
 	
+	/** @Update | */
+	patchUpdateTaskStatusService(id: string, status: EnumTaskStatus): ITask {
+		//..........
+		const taskStatusToUpdate = this.getTaskByIdService(id)
+		taskStatusToUpdate.status = status
+		
+		return taskStatusToUpdate
+	}
+	
+	/** @Delete | */
+	deleteTaskService(id: string): void {
+		//..........
+		// The HTTP response status code will be 404
+		const found = this.getTaskByIdService(id)
+		
+		this.tasks = this.tasks
+			.filter((task) => {
+				console.log('\n*. [DELETED TASK]:', task)
+				return task.id !== found.id
+			})
+	}
+	
 	/// Helper function
 	private filterSearchHelper(search: string, tasks: Array<ITask>) {
+		//..........
 		if ( search ) {
-			//..........
 			tasks = tasks.filter((task) => {
 				const { includes: includesTitleSearch } = task.title.toLowerCase()
 				const { includes: includesDescSearch } = task.description.toLowerCase()
@@ -61,27 +92,8 @@ export class TasksService {
 				return includesTitleSearch(search) || includesDescSearch(search)
 			})
 		}
-		return tasks
-	}
-	
-	/** @Update | */
-	updateTaskStatusService(id: string, status: EnumTaskStatus): ITask {
-		//..........
-		const taskStatusToUpdate = this.getTaskByIdService(id)
-		taskStatusToUpdate.status = status
 		
-		console.log('\n*. Updated status:', taskStatusToUpdate)
-		return taskStatusToUpdate
-	}
-	
-	/** @Delete | */
-	deleteTaskService(id: string): void {
-		//..........
-		this.tasks = this.tasks
-			.filter((task) => {
-				console.log('\n*. [DELETED TASK]:', task)
-				return task.id !== id
-			})
+		return tasks
 	}
 }
 /// - END OF: TasksController
