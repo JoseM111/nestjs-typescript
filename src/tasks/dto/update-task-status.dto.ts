@@ -1,5 +1,5 @@
 /** @UpdateTaskStatus.dto.ts | */
-import { EnumTaskStatus } from "tasks/models/tasks.model"
+import { EnumTaskStatus } from "tasks/models/task-status.enum"
 import { IsEnum } from "class-validator"
 
 // ⚫️⚫️☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰

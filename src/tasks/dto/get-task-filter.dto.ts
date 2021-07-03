@@ -1,5 +1,5 @@
 /** @get-task-filter.dto.ts | */
-import { EnumTaskStatus } from "tasks/models/tasks.model"
+import { EnumTaskStatus } from "tasks/models/task-status.enum"
 import { IsEnum, IsOptional, IsString } from "class-validator"
 // ⚫️⚫️☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰
 
