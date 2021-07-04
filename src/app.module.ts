@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common'
 import { TasksModule } from "tasks/tasks.module"
 import { TypeOrmModule } from "@nestjs/typeorm"
+// ⚫️⚫️☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰
 
 @Module({
   imports: [
@@ -18,4 +19,6 @@ import { TypeOrmModule } from "@nestjs/typeorm"
   ],
   controllers: [],
 })
+/// - END OF: @Module
+
 export class AppModule {}
