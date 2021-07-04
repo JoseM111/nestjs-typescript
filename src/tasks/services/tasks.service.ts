@@ -20,8 +20,11 @@ export class TasksService {
 	/** @Create | */
 	createTaskService(createTaskDto: CreateTaskDto): Promise<TaskEntity> {
 		//..........
-		return this.tasksRepository
-			.taskRepoCreateTask(createTaskDto)
+		return this.tasksRepository.taskRepoCreateTask(createTaskDto)
+			.then((createTaskDto) => {
+				console.log('\n*. [POST REQUEST] create task:\n', createTaskDto)
+				return createTaskDto
+			})
 	}
 	
 	/** @Read | */
@@ -29,7 +32,11 @@ export class TasksService {
 		//..........
 		// If nothing is found by id-->return: null
 		const taskFound = await this.tasksRepository.findOne(id)
-
+			.then((task) => {
+				console.log('[GET REQUEST] get task by id:', task)
+				return task
+			})
+		
 		if (!taskFound)
 			throw new NotFoundException(
 				`[TASK WITH ID]: ${id} does not exist`
@@ -41,19 +48,26 @@ export class TasksService {
 	getTaskService(filterDto: GetTaskFilterDto): Promise<Array<TaskEntity>> {
 		//..........
 		return this.tasksRepository.taskRepoGetTask(filterDto)
+			.then((filterDto) => {
+				console.log('\n*. [GET REQUEST] get all task:', filterDto)
+				return filterDto
+			})
 	}
 
 	/** @Update | */
-	async patchUpdateTaskStatusService(
-		id: string, status: EnumTaskStatus
-	): Promise<TaskEntity> {
+	async patchUpdateTaskStatusService(id: string, status: EnumTaskStatus): Promise<TaskEntity> {
 		//..........
-		// The HTTP response status code will be 404
+		// The HTTP response status code will be 404 if the id is not found
 		const taskStatusToUpdate = await this.getTaskByIdService(id)
 		taskStatusToUpdate.status = status
 		
 		// Now save the task to the repository
 		await this.tasksRepository.save(taskStatusToUpdate)
+		console.log(
+			'\n*. [PATCH REQUEST] patch status:', status,
+			'\nID#:', id
+		)
+		
 		return taskStatusToUpdate
 	}
 
@@ -68,7 +82,7 @@ export class TasksService {
 				`[COULD NOT DELETE] Task with ID: ${id} not found`
 			)
 		
-		console.log('[DELETED TASK]:', result)
+		console.log('\n*. [DELETED TASK]:', result, '\nID#:', id)
 	}
 }
 /// - END OF: TasksController
