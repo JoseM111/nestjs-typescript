@@ -5,7 +5,7 @@ import { IsNotEmpty } from "class-validator"
 export class CreateTaskDto {
 	//: - ©PROPERTIES
 	@IsNotEmpty() title: string
-	@IsNotEmpty() desc: string
+	@IsNotEmpty() description: string
 }
 /// - END OF: CreateTaskDto
 

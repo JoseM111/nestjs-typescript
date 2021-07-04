@@ -3,7 +3,7 @@ import { Column, Entity, PrimaryGeneratedColumn } from "typeorm"
 import { EnumTaskStatus } from "tasks/models/task-status.enum"
 // ⚫️⚫️☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰
 
-@Entity() export class Task {
+@Entity() export class TaskEntity {
 	//: - ©PROPERTIES
 	@PrimaryGeneratedColumn('uuid')
 	id: string
@@ -11,4 +11,4 @@ import { EnumTaskStatus } from "tasks/models/task-status.enum"
 	@Column() description: string
 	@Column() status: EnumTaskStatus
 }
-/// - END OF: Task
+/// - END OF: TaskEntity
