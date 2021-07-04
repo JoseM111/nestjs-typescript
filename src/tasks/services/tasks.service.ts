@@ -13,8 +13,7 @@ export class TasksService {
 	constructor(
 		@InjectRepository(TasksRepository)
 		private tasksRepository: TasksRepository
-	) {
-	}
+	) {}
 	
 	/// ======== <> CRUD FUNCTIONS <> ========
 	
